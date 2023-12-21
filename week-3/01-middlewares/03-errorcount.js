@@ -23,4 +23,14 @@ app.get('/errorCount', function(req, res) {
   res.status(200).json({ errorCount });
 });
 
+
+// Error handling middleware
+app.use(function(err, req, res, next){
+    errorCount += 1
+    res.status(404).send({})
+})
+
+app.listen(3000, function(){
+  
+})
 module.exports = app;
