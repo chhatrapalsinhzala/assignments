@@ -16,6 +16,65 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+  constructor() {
+    this.result = 0
+  }
+  getResult() {
+    return this.result
+  }
+
+  add(num) {
+    this.result += num
+  }
+
+  subtract(num) {
+    this.result -= num
+  }
+
+  multiply(num) {
+    this.result *= num
+  }
+
+  divide(num) {
+    if(num == 0) {
+      throw new Error("Can not devisible by 0")
+    }
+    this.result /= num
+
+  }
+
+  clear() {
+    this.result = 0
+  }
+
+  calculate(expr) {
+    expr = expr.replace(/\s/g,'')
+    if(!/^[0-9+\-*/().]+$/.test(expr)){
+      throw new Error("Invalid Expression")
+    }
+    console.log(expr)
+    try {
+      this.result = eval(expr)
+      if (isFinite(this.result)) {
+        throw new Error("Result is Infinity")
+      }
+      // let nums = new Array()
+      console.log(this.result)
+    } catch (error) {
+      throw new Error("Invalid Expression")
+    }
+
+  }
+  
+}
 
 module.exports = Calculator;
+expr = '10 / 0'
+cal = new Calculator();
+// cal.calculate(expr)
+// cal.add(4)
+// cal.divide(0)
+// cal.getResult()
+
+

@@ -7,6 +7,22 @@
 
 function countVowels(str) {
     // Your code here
+
+    // first convert the string in the lowwer case.
+    str = str.toLowerCase()
+    
+    let vowels = new Array('a','e','i','o','u')
+    noOfVowels = 0
+    for(let i = 0 ; i < str.length ; i++) {
+      if (vowels.includes(str[i]) ){
+        noOfVowels += 1;
+      }
+    }
+    console.log(noOfVowels) ;
+    return noOfVowels
 }
 
 module.exports = countVowels;
+
+// let str = 'chatbot'
+// countVowels(str)
