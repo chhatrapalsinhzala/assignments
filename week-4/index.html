@@ -7,16 +7,53 @@
     let todoState = [];
     let oldTodoState = [];
 
-    function addTodoToDom() {
-      
+    function markAsDone(todoId){
+      const element = document.getElementById(todoId)
+      for(let oldElement in oldTodoState){
+        if (oldElement.id === todoId) {
+          oldElement.completed = true
+          break
+        }
+      }
+      element.children[2].innerHTML = "Done"
+    }
+    
+    function createChild(title, description, taskId){
+        const outerDiv = document.createElement("div")
+        const titleDiv = document.createElement("div")
+        titleDiv.innerHTML = title
+        const descriptionDiv = document.createElement("div")
+        descriptionDiv.innerHTML = description
+        const buttonDiv = document.createElement("button")
+        buttonDiv.innerHTML = "Mark as done"
+        buttonDiv.setAttribute("onClick", `markAsDone(${taskId})`)
+        outerDiv.appendChild(titleDiv)
+        outerDiv.appendChild(descriptionDiv)
+        outerDiv.appendChild(buttonDiv)
+        outerDiv.setAttribute("id", taskId)
+        return outerDiv
+
+    }
+
+    function addTodoToDom(todo) {
+      const parent = document.getElementById("todos")
+      const title = todo.title
+      const description = todo.description
+      const id = todo.id
+      parent.appendChild(createChild(title, description, id))
     }
 
     function removeTodoFromDom(todo) {
-      
+      const element = document.getElementById(todo.id)
+      element.parentElement.removeChild(element)
     }
 
     function updateTodoInDom(oldTodo, newTodo) {
-        
+      const element = document.getElementById(oldTodo.id)
+      element.children[0].innerHTML = newTodo.title
+      element.children[1].innerHTML = newTodo.description
+      element.children[2].innerHTML = newTodo.completed ? "Mark as done" : "Done"
+
     }
 
     function updateState(newTodos) {
@@ -30,13 +67,41 @@
       const updated = [];
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
-      // elements
-      oldTodoState = newTodos;
+      // elements<
+      for (let i = 0 ; i < newTodos.length  || i < oldTodoState.length ; i++){
+        if (oldTodoState[i]){
+          if (oldTodoState[i].id === newTodos[i].id){
+            if(oldTodoState[i].title === newTodos[i].title &&
+              oldTodoState[i].description === newTodos[i].description &&
+              oldTodoState[i].completed === newTodos[i].completed ){
+              
+            } else {
+              updated.push([oldTodoState[i], newTodos[i]])
+            }
+          } else {
+            deleted.push(oldTodoState[i])
+            oldTodoState.splice(i, 1)
+            i--
+          }
+        }else{
+          added.push(newTodos[i])
+        }
+      }
+
+      added.forEach(addTodoToDom)
+      deleted.forEach(removeTodoFromDom)
+      updated.forEach(updateTodoInDom)
+      console.log("added : ", added)
+      console.log("deleted : ", deleted)
+      console.log("updated : ", updated)
+      oldTodoState = [...newTodos];
+      console.log("oldElement : ", oldTodoState)
     }
 
     function addTodo() {
       const title = document.getElementById("title").value;
       const description = document.getElementById("description").value;
+      console.log(title, description)
       todoState.push({
         title: title,
         description: description,
