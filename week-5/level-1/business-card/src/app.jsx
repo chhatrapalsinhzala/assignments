@@ -9,25 +9,25 @@ export function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
+        <BusinessCard></BusinessCard>
       </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/app.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
+      
     </>
   )
+}
+
+function BusinessCard() {
+  return <div>
+    <h1>Chhatrapalsinh Zala</h1>
+    <h5>Software Engineer..</h5>
+    <b>Tech Stack</b>
+    <ul>
+      <li>Python</li>
+      <li>Django</li>
+      <li>Flask</li>
+    </ul>
+
+    <a type='button' href="">Twitter</a>
+    <a type='button' href="">LinkedIn</a>
+  </div>
 }
